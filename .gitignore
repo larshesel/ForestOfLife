@@ -2,3 +2,4 @@
 *~
 .eunit
 *.beam
+*.class
