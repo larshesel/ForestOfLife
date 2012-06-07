@@ -1,0 +1,12 @@
+{application, eserver,
+ [
+  {description, ""},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { eserver_app, []}},
+  {env, []}
+ ]}.
