@@ -25,17 +25,20 @@ public class Main extends JPanel {
 	}
 
 	public static void main(String[] args) {
+
 		try {
 			OtpNode self = new OtpNode("client");
 			OtpMbox mbox = self.createMbox("client_mbox");
 			if (self.ping(SERVER, 1000)) {
 				// connected!
+				TolClient tolClient = new TolClient(self, mbox);
+				tolClient.start();
 			} else {
-				// log sth
+				Log.d("INIT: could not connect to " + SERVER);
 				throw new RuntimeException("Could not connect to: " + SERVER);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new RuntimeException("Could not create an OTP node.");
 		}
 
 		JFrame frame = new JFrame("Tree of Life");
