@@ -3,3 +3,4 @@
 .eunit
 *.beam
 *.class
+ebin/
