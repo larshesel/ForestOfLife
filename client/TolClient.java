@@ -17,6 +17,7 @@ public class TolClient extends Thread {
 	
 	@Override
 	public void run() {
+		System.out.println("Started receive loop");
 		while(true) {
 			try {
 				OtpErlangObject receive = mbox.receive();

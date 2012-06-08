@@ -24,5 +24,13 @@ start_link() ->
 %% ===================================================================
 
 init([]) ->
-    {ok, { {one_for_one, 5, 10}, []} }.
+    Processes = [gui_interface()],
+    Strategy = {one_for_one, 5, 10},
+    {ok, {Strategy, lists:flatten(Processes)}}.
+    
+gui_interface() ->
+    Cfg = [],
+    ModName = gui_interface_server,
+    Mfa = {gui_interface_server, start_link, [Cfg]},
+    {ModName, Mfa, permanent, 5000, worker, dynamic}.
 
