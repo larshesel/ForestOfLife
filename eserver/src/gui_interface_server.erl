@@ -13,7 +13,7 @@
 %% API
 -export([start_link/1]).
 
--export([get_state/0]).
+-export([get_state/0, build_fake_state/0]).
 
 %% gen_server callbacks
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2,
@@ -29,7 +29,25 @@
 
 get_state() ->
     error_logger:info_msg("get_state called~n", []),
-    {ok, state}.
+    {ok, build_fake_state()}.
+
+build_fake_state() ->
+    [{player1, 
+      [ get_supervisor(10, 10)| 
+	[ get_worker(X+10, X + 10) || X <- lists:seq(1,10) ]]
+     },
+     {player2, 
+      [ get_supervisor(20,10)|
+	[ get_worker(X+20, X + 10) || X <- lists:seq(1,10) ]]
+     }
+    ].
+
+get_worker(X, Y) ->
+    {worker, X, Y}.
+
+get_supervisor(X, Y) ->
+    {supervisor, X, Y}.
+
 
 %%--------------------------------------------------------------------
 %% @doc
